@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rr-webapi"
-version = "v0.1.0"
+version = "0.1.1"
 description = "Python client library for RaceResult Web API"
 authors = [
-    {name = "SP Timing Team", email = "info@sptiming.ch"}
+    {name = "SP Timing Team", email = "dev@sptiming.ch"}
 ]
 maintainers = [
-    {name = "SP Timing Team", email = "info@sptiming.ch"}
+    {name = "SP Timing Team", email = "dev@sptiming.ch"}
 ]
 license = "GPL-3.0-or-later"
 readme = "README.md"
@@ -80,13 +80,13 @@ extend-exclude = '''
 '''
 
 [tool.mypy]
-python_version = "v0.1.0"
+python_version = "0.1.1"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
-minversion = "v0.1.0"
+minversion = "0.1.1"
 addopts = "-ra -q"
 testpaths = [
     "tests",

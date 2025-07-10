@@ -12,6 +12,40 @@ class Participants:
     def __init__(self, event_api):
         self.event_api = event_api
     
+    def get_fields(self, identifier: Dict[str, Any], fields: List[str]) -> Dict[str, Any]:
+        """
+        Get fields of one participant
+        
+        Args:
+            identifier: Dictionary with identifier name and value (e.g., {"PID": 123} or {"Bib": 456})
+            fields: List of field names to retrieve
+            
+        Returns:
+            Dictionary with field values
+        """
+        # Build parameters - identifier name and value are separate parameters
+        params = {}
+        
+        # Add identifier to parameters (use lowercase for parameter names)
+        for key, value in identifier.items():
+            params[key.lower()] = value
+        
+        # Add fields as JSON-encoded array (like Go does)
+        if fields:
+            params["fields"] = json.dumps(fields)
+        
+        # Debug: print the actual request details
+        print(f"🔍 Debug - Request params: {params}")
+        
+        response = self.event_api.get("part/getfields", params)
+        
+        # Debug: print response length
+        print(f"🔍 Debug - Response length: {len(response)} bytes")
+        if len(response) < 500:  # Only print short responses
+            print(f"🔍 Debug - Response content: {response.decode('utf-8')}")
+        
+        return json.loads(response.decode('utf-8'))
+    
     def save_fields(self, bib: int, values: Dict[str, Any], create_if_not_exists: bool = False) -> None:
         """
         Save participant fields

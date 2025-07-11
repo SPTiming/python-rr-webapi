@@ -65,6 +65,6 @@ class EventAPI:
         Returns:
             Dictionary with results for each request
         """
-        data = {"requests": requests}
-        response = self.post("multirequest", None, data)
+        # Send requests array directly (like Go library), not wrapped in an object
+        response = self.post("multirequest", None, requests)
         return json.loads(response.decode('utf-8')) 

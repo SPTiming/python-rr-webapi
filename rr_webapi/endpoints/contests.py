@@ -65,7 +65,7 @@ class Contests:
         Returns:
             List of contest dictionaries
         """
-        response = self.event_api.get("contests/list", None)
+        response = self.event_api.get("contests/get", None)
         return json.loads(response.decode('utf-8'))
     
     def get(self, contest_id: int) -> Dict[str, Any]:

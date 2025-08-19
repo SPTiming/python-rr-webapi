@@ -3,7 +3,7 @@ RawData API endpoints for RaceResult Web API
 """
 
 import json
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 
 
 class RawData:
@@ -112,4 +112,24 @@ class RawData:
             raw_data_id: ID of the raw data entry to delete
         """
         params = {"id": raw_data_id}
-        self.event_api.get("rawdata/delete", params) 
+        self.event_api.get("rawdata/delete", params)
+    
+    def add_manual(self, timing_point: str, identifier_name: str, identifier_value: int, 
+                   time: float, add_t0: bool = False) -> None:
+        """
+        Add a raw data entry manually
+        
+        Args:
+            timing_point: Name of the timing point
+            identifier_name: Type of identifier ('bib' or 'pid')
+            identifier_value: Value of the identifier (bib number or participant ID)
+            time: Time value (in decimal seconds)
+            add_t0: Whether to add T0 (start time offset)
+        """
+        params = {
+            "timingPoint": timing_point,
+            identifier_name: identifier_value,
+            "time": time,
+            "addT0": add_t0
+        }
+        self.event_api.get("rawdata/addmanual", params) 

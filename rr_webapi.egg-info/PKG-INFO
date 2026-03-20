@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: rr-webapi
-Version: 0.1.7
+Version: 0.1.8
 Summary: Python client library for RaceResult Web API
 Author-email: SP Timing Team <dev@sptiming.ch>
 Maintainer-email: SP Timing Team <dev@sptiming.ch>
@@ -136,6 +136,41 @@ api.public().login(api_key="your_api_key")
 api.public().login(username="username", password="password")
 ```
 
+## Bulk Operations
+
+### Adding Multiple Participants at Once
+
+```python
+# Prepare multiple participants
+participants = []
+for i in range(1001, 1006):
+    participant = {
+        "Bib": i,
+        "FirstName": "Test",
+        "LastName": str(i),
+        "Sex": "m",
+        "DateOfBirth": "1990-01-01",
+        "Contest": contest_id
+    }
+    participants.append(participant)
+
+# Save all participants in bulk
+event_api.participants().save(participants, no_history=False)
+```
+
+### Manual Raw Data Entry
+
+```python
+# Add a manual timing entry
+event_api.rawdata().add_manual(
+    timing_point="Finish",
+    identifier_name="bib",  # or "pid"  
+    identifier_value=1001,
+    time=3600.5,  # Time in decimal seconds
+    add_t0=False
+)
+```
+
 ## Data Models
 
 The library uses dataclasses for structured data:
@@ -155,6 +190,7 @@ class EventListItem:
 See the `../../examples/python/` directory for complete examples:
 - `basic_usage.py`: Authentication and basic operations
 - `participant_and_rawdata.py`: Advanced participant and timing data operations
+- `bulk_participant_save.py`: Bulk saving multiple participants at once
 
 ## Development
 

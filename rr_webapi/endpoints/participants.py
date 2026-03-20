@@ -63,20 +63,19 @@ class Participants:
         
         self.event_api.post("participants/savefields", None, data)
     
-    def save(self, participants: List[Dict[str, Any]], create_if_not_exists: bool = False) -> None:
+    def save(self, participants: List[Dict[str, Any]], no_history: bool = False) -> None:
         """
         Save multiple participants
         
         Args:
             participants: List of participant dictionaries
-            create_if_not_exists: Whether to create participants if not exists
+            no_history: Whether to skip adding entries to the history
         """
-        data = {
-            "participants": participants,
-            "createIfNotExists": create_if_not_exists
+        params = {
+            "noHistory": no_history
         }
         
-        self.event_api.post("participants/save", None, data)
+        self.event_api.post("part/savefields", params, participants)
     
     def delete(self, filter_str: str, bib: int = 0, version: int = 0) -> None:
         """
